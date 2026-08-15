@@ -1,7 +1,7 @@
 # x create the board
 # x choose an initial player
 # x until someone wins, check for a winner
-#   show the board
+# x show the board
 #   choose location, mark it
 #   toggle active player
 
@@ -29,27 +29,30 @@ def main():
         # SHOW THE BOARD
         player = players[active_player_index]
 
-        announce_turn(player)
+
+        announce_turn(player, board)
         show_board(board)
         input("paused")
 
 def show_board(board):
     for row in board:
+        print("| ", end='')
         for cell in row:
-            print(cell, end=" | ")
+            symbol = cell if cell is not None else "_"
+            print(symbol, end=" | ")
         print()
 
 
-def announce_turn(player):
+def announce_turn(player, board):
     print()
-    print(f"It's {players} turn. Here is the board: ")
+    print(f"It's {player}'s turn. Here is the board: ")
     print()
-    show_board()
+    show_board(board)
 
 
 def find_winner(board):
     # TODO: Implement how we check for a winner  
     return False
 
-if __name__ == ' main ':
+if __name__ == "__main__":
     main()
