@@ -37,8 +37,14 @@ def main():
             print("That isn't an option, try again.")
             continue
 
+        # TOGGLE ACTIVE PLAYER
+        active_player_index = (active_player_index + 1) % len(players)
+
+    print(f"Game over! {player} has won with the board: ")
+    show_board(board)
+
 def choose_location(board, symbol):
-    row = int(input("Choose which row: "))
+    row = int(input("Choose which row: ")) 
     column = int(input("Choose which column:  "))
 
     row -= 1
