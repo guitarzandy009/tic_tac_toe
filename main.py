@@ -79,6 +79,34 @@ def announce_turn(player, board):
 
 def find_winner(board):
     # TODO: Implement how we check for a winner  
+    
+    # Win by rows
+    rows = board
+    for row in rows:
+        symbol1 = row[0]
+        if not symbol1:
+            continue
+
+        for cell in row:
+            if cell != symbol1:
+                continue
+
+        return True
+
+    # Win by columns
+    columns = []
+    for col_idx in range(0, 3):
+        col = [
+            board[0][col_idx],
+            board[1][col_idx],
+            board[2][col_idx]
+        ]
+
+    # Win by diagonal
+    diagonals = [
+        board[0][0], board[1][1], board[2][2], 
+        board[0][2], board[1][1], board[2][0] 
+    ]
     return False
 
 if __name__ == "__main__":
