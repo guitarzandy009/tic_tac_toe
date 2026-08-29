@@ -1,42 +1,42 @@
-# x create the board
-# x choose an initial player
-# x until someone wins, check for a winner
-# x show the board
-# x  choose location, mark it
-#   toggle active player
+# √ choose the players
+# √ create the board
+# √ choose an initial player
+# √ until someone wins, check for winner
+# √   show the board
+# √   choose location, mark it
+# √   toggle active player
 
-# game over!, active player won
+# √ game over, active player won!
 
-print()
-print("Welcome to TIC TAC TOE from TALK PYTHON")
-print()
 
 def main():
-    # CREATE BOARD
+    print()
+    print("Welcome to TIC TAC TOE from TALK PYTHON")
+    print()
+
+    # CREATE THE BOARD:
     # Board is a list of rows
     # Rows are a list of cells
     board = [
         [None, None, None],
         [None, None, None],
-        [None, None, None]
+        [None, None, None],
     ]
-
 
     # CHOOSE INITIAL PLAYER
     active_player_index = 0
-    players = ["You", "computer"]
+    players = ["Michael", "Computer"]
     symbols = ["X", "O"]
+    player = players[active_player_index]
 
     # UNTIL SOMEONE WINS
-
     while not find_winner(board):
         # SHOW THE BOARD
         player = players[active_player_index]
         symbol = symbols[active_player_index]
 
-        announce_turn(player, board)
-        # show_board(board)
-        # input("paused")
+        announce_turn(player)
+        show_board(board)
         if not choose_location(board, symbol):
             print("That isn't an option, try again.")
             continue
@@ -44,12 +44,15 @@ def main():
         # TOGGLE ACTIVE PLAYER
         active_player_index = (active_player_index + 1) % len(players)
 
-    print(f"Game over! {player} has won with the board: ")
+    print()
+    print(f"GAME OVER! {player} has won with the board: ")
     show_board(board)
+    print()
+
 
 def choose_location(board, symbol):
-    row = int(input("Choose which row: ")) 
-    column = int(input("Choose which column:  "))
+    row = int(input("Choose which row: "))
+    column = int(input("Choose which column: "))
 
     row -= 1
     column -= 1
@@ -65,6 +68,7 @@ def choose_location(board, symbol):
     board[row][column] = symbol
     return True
 
+
 def show_board(board):
     for row in board:
         print("| ", end='')
@@ -74,16 +78,15 @@ def show_board(board):
         print()
 
 
-def announce_turn(player, board):
+def announce_turn(player):
     print()
-    print(f"It's {player}'s turn. Here is the board: ")
+    print(f"It's {player}'s turn. Here's the board:")
     print()
-    show_board(board)
 
 
 def find_winner(board):
-    # TODO: Implement how we check for a winner  
-    
+
+
     # Win by rows
     rows = board
     for row in rows:
@@ -96,17 +99,16 @@ def find_winner(board):
                 continue
  
         return True
-
+    
     # Win by columns
-    columns = []
     for col_idx in range(0, 3):
         col = [
             board[0][col_idx],
             board[1][col_idx],
-            board[2][col_idx]
+            board[2][col_idx],
         ]
-        sequences.apend(col)
-        
+        sequences.append(col)
+
     # Win by diagonals
     diagonals = [
         [board[0][0], board[1][1], board[2][2]],
@@ -118,7 +120,6 @@ def find_winner(board):
 
 def get_winning_sequences(board):
     pass
-
 
 if __name__ == '__main__':
     main()
