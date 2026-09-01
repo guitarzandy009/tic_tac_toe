@@ -3,22 +3,24 @@
 # x until someone wins, check for a winner
 # x show the board
 # x  choose location, mark it
-#   toggle active player
+# x toggle active player
 
-# game over!, active player won
+# x game over!, active player won
 
-print()
-print("Welcome to TIC TAC TOE from TALK PYTHON")
-print()
+
 
 def main():
+    print()
+    print("Welcome to TIC TAC TOE from TALK PYTHON")
+    print()
+
     # CREATE BOARD
     # Board is a list of rows
     # Rows are a list of cells
     board = [
         [None, None, None],
         [None, None, None],
-        [None, None, None]
+        [None, None, None],
     ]
 
 
@@ -26,6 +28,7 @@ def main():
     active_player_index = 0
     players = ["You", "computer"]
     symbols = ["X", "O"]
+    player = players[active_player_index]
 
     # UNTIL SOMEONE WINS
 
@@ -34,8 +37,8 @@ def main():
         player = players[active_player_index]
         symbol = symbols[active_player_index]
 
-        announce_turn(player, board)
-        # show_board(board)
+        announce_turn(player)
+        show_board(board)
         # input("paused")
         if not choose_location(board, symbol):
             print("That isn't an option, try again.")
@@ -44,8 +47,10 @@ def main():
         # TOGGLE ACTIVE PLAYER
         active_player_index = (active_player_index + 1) % len(players)
 
+    print()
     print(f"Game over! {player} has won with the board: ")
     show_board(board)
+    print()
 
 def choose_location(board, symbol):
     row = int(input("Choose which row: ")) 
@@ -74,38 +79,52 @@ def show_board(board):
         print()
 
 
-def announce_turn(player, board):
+def announce_turn(player):
     print()
     print(f"It's {player}'s turn. Here is the board: ")
     print()
-    show_board(board)
+    # show_board(board )
 
 
 def find_winner(board):
     # TODO: Implement how we check for a winner  
-    
+
+    sequences = get_winning_sequences(board)
+
+    for cells in sequences:
+        symbol1 = cells[0]
+        if symbol1 and all(symbol1 == cell for cell in cells):
+            return True
+
+    return False
+
+
+def get_winning_sequences(board):
+    sequences = []
+
     # Win by rows
     rows = board
-    for row in rows:
-        symbol1 = row[0]
-        if not symbol1:
-            continue
+    sequences.extend(rows)
+    # for row in rows:
+        # symbol1 = row[0]
+        # if not symbol1:
+        #     continue
 
-        for cell in row:
-            if cell != symbol1:
-                continue
+        # for cell in row:
+        #     if cell != symbol1:
+        #         continue
  
-        return True
+        # return True
 
     # Win by columns
-    columns = []
+    # columns = []
     for col_idx in range(0, 3):
         col = [
             board[0][col_idx],
             board[1][col_idx],
             board[2][col_idx]
         ]
-        sequences.apend(col)
+        sequences.append(col)
         
     # Win by diagonals
     diagonals = [
@@ -115,9 +134,6 @@ def find_winner(board):
     sequences.extend(diagonals)
 
     return sequences
-
-def get_winning_sequences(board):
-    pass
 
 
 if __name__ == '__main__':

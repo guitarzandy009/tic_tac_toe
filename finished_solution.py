@@ -85,21 +85,23 @@ def announce_turn(player):
 
 
 def find_winner(board):
+    sequences = get_winning_sequences(board)
 
+    for cells in sequences:
+        symbol1 = cells[0]
+        if symbol1 and all(symbol1 == cell for cell in cells):
+            return True
+
+    return False
+
+
+def get_winning_sequences(board):
+    sequences = []
 
     # Win by rows
     rows = board
-    for row in rows:
-        symbol1 = row[0]
-        if not symbol1:
-            continue
+    sequences.extend(rows)
 
-        for cell in row:
-            if cell != symbol1:
-                continue
- 
-        return True
-    
     # Win by columns
     for col_idx in range(0, 3):
         col = [
@@ -118,8 +120,6 @@ def find_winner(board):
 
     return sequences
 
-def get_winning_sequences(board):
-    pass
 
 if __name__ == '__main__':
     main()
